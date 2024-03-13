@@ -30,9 +30,8 @@ export const combineTwoWords = async (firstWord, secondWord) => {
       Authorization: "Bearer no-key",
     },
     body: JSON.stringify({
-      model: "LLaMA_CPP",
-      n_predict: 1000,
-      temperature: 0.3,
+      n_predict: 400,
+      temperature: 2,
       repeat_last_n: 256,
       repeat_penalty: 1.18,
       top_k: 40,
@@ -47,6 +46,7 @@ export const combineTwoWords = async (firstWord, secondWord) => {
       grammar: "",
       n_probs: 0,
       image_data: [],
+      stop: ["</s>", "Llama:", "User:"],
       cache_prompt: true,
       slot_id: 0,
       prompt: `This is a conversation between User and Llama, a friendly chatbot. Llama is helpful, kind, honest, good at writing, and never fails to answer any requests immediately and with precision.

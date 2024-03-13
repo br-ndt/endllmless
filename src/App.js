@@ -51,9 +51,8 @@ function App() {
 
       // const word = wordRes?.choices[0].message.content.split(" ")[0].toLocaleLowerCase();
       const word = getFirstWord(
-        wordRes?.content.trim().replace("\"", "")
+        wordRes?.content.trim().replaceAll("\"", "")
       );
-      setNewWord(word);
       if (!Object.keys(words).includes(word)) {
         const emoRes = await bestEmoji(word);
         const emoji = emoRes?.content;
@@ -61,6 +60,7 @@ function App() {
         setWords(updatedWords);
         localStorage.setItem("words", JSON.stringify(updatedWords));
       }
+      setNewWord(word);
       setLoading(false);
     },
     [words, loading]
