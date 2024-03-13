@@ -1,54 +1,23 @@
+/*
+palette: https://palettes.shecodes.io/palettes/1313
+*/
+
+* {
+  text-transform: capitalize;
+}
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #462f8e;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .spinner {
   border: 10px solid #f3f3f3;
   border-top: 10px solid #3498db;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 5px;
+  height: 5px;
   animation: spin 2s linear infinite;
-  font-size: large;
-  position: absolute;
-  margin: auto;
-  width: 50%;
   padding: 10px;
+  display: inline-block;
 }
 
 @keyframes spin {
@@ -61,8 +30,10 @@
 }
 
 button {
-  background-color: #baadd3;
-  box-shadow: 0px 0px 1px 2px #0ff;
+  /* background-color: #baadd3; */
+  background-color: #9fd3c7;
+  /* box-shadow: 0px 0px 1px 2px #0ff; */
+  box-shadow: 0px 0px 1px 2px #385170;
   display: flex-inline;
   justify-content: space-between;
   margin-right: 8px;
@@ -75,4 +46,20 @@ button:hover{
   background-color: #ffffff;
   color:#671199;
   font-weight: bold;
+}
+
+body {
+  background: #142d4c;
+  color: #ececec;
+  /* font-size: 16px; */
+  font-size: calc(10px + 2vmin); 
+}
+
+.container {
+  margin: auto;
+  max-width: 720px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
