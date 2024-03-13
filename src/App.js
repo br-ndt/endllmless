@@ -16,86 +16,117 @@ const getFirstWord = (content) => {
   return "nope";
 };
 
-const getRandomStopWord = () => stopWords[Math.floor(stopWords.length * Math.random())];
+const getRandomStopWord = () =>
+  stopWords[Math.floor(stopWords.length * Math.random())];
 const randomWord = getRandomStopWord();
 
 const defaultWords = {
-  fire: "🔥",
-  water: "💦",
   earth: "⛰️",
+  fire: "🔥",
+  life: "🌿",
+  stone: "🪨",
+  water: "💦",
   wind: "🌬️",
+  wood: "🪵",
 };
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [combo, setCombo] = useState([]);
+  const [firstWord, setFirstWord] = useState("");
+  const [secondWord, setSecondWord] = useState("");
+  const [newWord, setNewWord] = useState("");
   const [words, setWords] = useState(() => {
     const wordsInStorage = localStorage.getItem("words");
-    console.log({wordsInStorage});
     if (wordsInStorage) {
       return JSON.parse(wordsInStorage);
     } else {
       return defaultWords;
     }
   });
-  const [newWord, setNewWord] = useState("");
 
   const makeTheRequest = useCallback(
-    async (newCombo) => {
+    async (firstWord, secondWord) => {
       setLoading(true);
-      const wordRes = await combineTwoWords(newCombo[0], newCombo[1]);
+      const wordRes = await combineTwoWords(firstWord, secondWord);
 
       // const word = wordRes?.choices[0].message.content.split(" ")[0].toLocaleLowerCase();
-      const word = getFirstWord(wordRes?.choices[0].message.content);
+      const word = getFirstWord(
+        wordRes?.content.trim().replace("\"", "")
+      );
       setNewWord(word);
       if (!Object.keys(words).includes(word)) {
         const emoRes = await bestEmoji(word);
-        const emoji = emoRes?.choices[0].message.content;
-        const updatedWords = { ...words, [word]: emoji }
+        const emoji = emoRes?.content;
+        const updatedWords = { ...words, [word]: emoji };
         setWords(updatedWords);
-        localStorage.setItem('words', JSON.stringify(updatedWords));
+        localStorage.setItem("words", JSON.stringify(updatedWords));
       }
       setLoading(false);
     },
-    [words]
+    [words, loading]
   );
 
-  const updateCombo = useCallback(
-    async (newCombo) => {
-      setNewWord("");
-      setCombo(newCombo);
-      if (newCombo.length > 1) {
-        makeTheRequest(newCombo);
+  const setWord = useCallback(
+    async (word) => {
+      if (!loading) {
+        if (newWord) {
+          setFirstWord(word);
+          setNewWord("");
+          setSecondWord("");
+        } else if (firstWord) {
+          setSecondWord(word);
+          makeTheRequest(firstWord, word);
+        } else {
+          setFirstWord(word);
+          setNewWord("");
+          setSecondWord("");
+        }
       }
     },
-    [words]
+    [firstWord, secondWord, loading]
   );
-
-  console.log(combo);
 
   return (
     <div className="App">
       <div className="container" style={{ maxWidth: "720px", margin: "auto" }}>
-        <div>
-          <h2 style={{textTransform: 'uppercase'}}>CRAFT {randomWord} THINGS</h2>
+        <div className="topbar">
+          <div>
+            <h2 style={{ textTransform: "uppercase" }}>
+              CRAFT {randomWord} THINGS
+            </h2>
+          </div>
+          <div
+            style={{
+              height: "50px",
+              marginBottom: "16px",
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {firstWord ? (
+              <>
+                <SelectedWord string={firstWord} emoji={words[firstWord]} />
+                <span>+</span>
+              </>
+            ) : (
+              <></>
+            )}
+            {secondWord ? (
+              <SelectedWord string={secondWord} emoji={words[secondWord]} />
+            ) : (
+              <></>
+            )}
+            {firstWord && secondWord ? "= " : ""}
+            {newWord ? (
+              <SelectedWord string={newWord} emoji={words[newWord]} />
+            ) : loading ? (
+              <Spinner />
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-        <div style={{ height: "50px", marginBottom: "16px", display: "flex" }}>
-          <SelectedWord string={combo[0]} emoji={words[combo[0]]} />
-          <span>+</span>
-          <SelectedWord string={combo[1]} emoji={words[combo[1]]} />
-          {combo.length === 2 ? "= " : ""}
-          {newWord ? (
-            <SelectedWord string={newWord} emoji={words[newWord]} />
-          ) : loading ? (
-            <Spinner />
-          ) : (
-            ""
-          )}
-        </div>
-        <GameButtonsContainer
-          updateCombo={(combo) => updateCombo(combo)}
-          words={words}
-        />
+        <GameButtonsContainer setWord={setWord} words={words} />
       </div>
     </div>
   );

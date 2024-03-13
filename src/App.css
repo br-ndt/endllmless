@@ -10,11 +10,11 @@ palette: https://palettes.shecodes.io/palettes/1313
 }
 
 .spinner {
-  border: 10px solid #f3f3f3;
-  border-top: 10px solid #3498db;
+  border: 1vw solid #f3f3f3;
+  border-top: 1vw solid #3498db;
   border-radius: 50%;
-  width: 5px;
-  height: 5px;
+  width: 0.5vw;
+  height: 0.5vw;
   animation: spin 2s linear infinite;
   padding: 10px;
   display: inline-block;
@@ -62,4 +62,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  .topbar {
+    background: #142d4c;
+    position: sticky;
+    width: 100%;
+    top: 0;
+  }
 }

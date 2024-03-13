@@ -15,24 +15,10 @@ const GameButton = ({ word, emoji, onClick, index }) => {
 };
 
 // words: string[]
-export const GameButtonsContainer = ({ words, updateCombo }) => {
-  const [firstWord, setFirstWord] = useState(null);
-  const [combo, setCombo] = useState([]);
-
-  const handleClick = useCallback(
-    (word) => {
-      if (firstWord === null) {
-        setFirstWord(word);
-        updateCombo([word]);
-      } else {
-        const newCombo = [firstWord, word];
-        setCombo(newCombo);
-        updateCombo(newCombo);
-        setFirstWord(null);
-      }
-    },
-    [firstWord]
-  );
+export const GameButtonsContainer = ({ words, setWord }) => {
+  const handleClick = useCallback((word) => {
+    setWord(word);
+  }, [setWord]);
 
   return (
     <div>
