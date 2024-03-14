@@ -53,6 +53,11 @@ function App() {
     }
   });
 
+  const resetWords = () => {
+    localStorage.setItem("words", JSON.stringify(defaultWords));
+    setWords(defaultWords);
+  };
+
   const makeTheRequest = useCallback(
     async (firstWord, secondWord) => {
       setLoading(true);
@@ -144,6 +149,7 @@ function App() {
         </div>
         <GameButtonsContainer setWord={setWord} words={words} />
       </div>
+      <button onClick={resetWords}>Reset Words</button>
     </div>
   );
 }
