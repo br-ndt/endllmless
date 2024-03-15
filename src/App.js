@@ -1,6 +1,6 @@
 import "./App.css";
 import { useCallback, useEffect, useState } from "react";
-import { bestEmoji, combineTwoWords } from "./utils/llama";
+import { combineTwoWords } from "./utils/combineWordsApi";
 import Spinner from "./Spinner";
 import { GameButtonsContainer } from "./GameButton";
 import { stopWordsMap, stopWords } from "./stopWords";
@@ -49,14 +49,11 @@ function App() {
       setLoading(true);
       const wordRes = await combineTwoWords(firstWord, secondWord);
 
-      // const word = wordRes?.choices[0].message.content.split(" ")[0].toLocaleLowerCase();
       const word = getFirstWord(
-        wordRes?.content.trim().replaceAll("\"", "")
+        wordRes.newWord.replaceAll("\"", "")
       );
       if (!Object.keys(words).includes(word)) {
-        const emoRes = await bestEmoji(word);
-        const emoji = emoRes?.content;
-        const updatedWords = { ...words, [word]: emoji };
+        const updatedWords = { ...words, [word]: wordRes.newEmoji };
         setWords(updatedWords);
         localStorage.setItem("words", JSON.stringify(updatedWords));
       }
