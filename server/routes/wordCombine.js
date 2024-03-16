@@ -30,14 +30,14 @@ router.get('/', async (req, res, next) => {
   });
 
 
-  const newWord = wordResponse.choices[0].message.content;
+  const newWord = wordResponse.choices[0].message.content.trim().replace(/[^a-zA-Z0-9 ]/g, '');
 
   const emojiResponse = await openai.chat.completions.create({
     model: "gpt-4-turbo-preview",
     messages: [
       {
         "role": "user",
-        "content": `Select some emoji for me. I will give you a word, and you will respond with the emoji that most-literally represents the meaning of the word. Please respond only with an emoji, do not elaborate.\n         \n         Some examples:\n         - \"Fire\" = \"🔥\" \n         - \"Ice\" = \"🧊\"\n         - \"Water\" = \"💧\"\n         - \"Cloud\" = \"☁️\"\n         - \"Earth\" = \"🌎\"\n         - \"Poop\" = \"💩\"\n         - \"Volcano\" = \"🌋\"\n         - \"Rain\" = \"🌧️\"\n         - \"Death\" = \"💀\"\n         - \"Man\" = \"👨\" \n         - \"Zombie\" = \"🧟\"\n         - \"Tomato\" = \"🍅\"\n         - \"Bread\" = \"🍞\"\n         - \"Pizza\" = \"🍕\"\n         - \"Wind\" = \"🌬️\" \n        \n\"${newWord}\" = ?`
+        "content": `Respond with the emoji that most-literally represents the meaning of the word "${newWord}". Please respond only with an emoji, do not elaborate.`
       }
     ],
     temperature: 1,
@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
     frequency_penalty: 0,
     presence_penalty: 0,
   });
-  const newEmoji = emojiResponse.choices[0].message.content;
+  const newEmoji = emojiResponse.choices[0].message.content.trim().replace(/[^a-zA-Z0-9 ]/g, '');
 
   res.json({ newWord, newEmoji });
 });

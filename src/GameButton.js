@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 const GameButton = ({ word, emoji, onClick, index }) => {
   return (
     <button
-      style={{ padding: "16px", textTransform: "lowercase" }}
+      style={{ padding: "0px 6px 0px 6px", minWidth: "64px", minHeight: "104px", textTransform: "lowercase" }}
       onClick={() => onClick(word)}
       tabIndex={index}
     >

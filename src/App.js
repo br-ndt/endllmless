@@ -89,7 +89,7 @@ function App() {
   );
 
   useEffect(() => {
-    const interval = setInterval(() => setStopWord(getRandomStopWord()), (Math.random() * 5000) + 3000);
+    const interval = setInterval(() => setStopWord(getRandomStopWord()), (Math.random() * 10000) + 5000);
     return () => {
       clearInterval(interval);
     };
@@ -126,7 +126,7 @@ function App() {
             ) : (
               <></>
             )}
-            {firstWord && secondWord ? "= " : ""}
+            <span>{firstWord && secondWord ? "= " : ""}</span>
             {newWord ? (
               <SelectedWord word={newWord} emoji={words[newWord]} isFirstFound={isFirstFound} />
             ) : loading ? (
