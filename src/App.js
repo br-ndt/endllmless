@@ -6,7 +6,6 @@ import { GameButtonsContainer } from "./GameButton";
 import { stopWordsMap, stopWords } from "./stopWords";
 import { SelectedWord } from "./SelectedWord";
 
-
 const getFirstWord = (content) => {
   const words = content.split(" ");
   for (let word of words) {
@@ -20,12 +19,13 @@ const getFirstWord = (content) => {
 const getRandomStopWord = () =>
   stopWords[Math.floor(stopWords.length * Math.random())];
 
-
 const defaultWords = {
   earth: "⛰️",
   fire: "🔥",
   life: "🌿",
   water: "💦",
+  wind: "🌬️",
+};
 
 const defaultWordState = {
   first: "",
@@ -112,14 +112,7 @@ function App() {
               CRAFT {stopWord} THINGS
             </h2>
           </div>
-          <div
-            style={{
-              height: "50px",
-              marginBottom: "16px",
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
+          <div className="word-combo" style={{}}>
             {wordState.first ? (
               <>
                 <SelectedWord
