@@ -1,10 +1,11 @@
 import "./App.css";
 import { useCallback, useEffect, useState } from "react";
-import { bestEmoji, combineTwoWords } from "./utils/llama";
+import { combineTwoWords } from "./utils/combineWordsApi";
 import Spinner from "./Spinner";
 import { GameButtonsContainer } from "./GameButton";
 import { stopWordsMap, stopWords } from "./stopWords";
 import { SelectedWord } from "./SelectedWord";
+
 
 const getFirstWord = (content) => {
   const words = content.split(" ");
@@ -18,22 +19,30 @@ const getFirstWord = (content) => {
 
 const getRandomStopWord = () =>
   stopWords[Math.floor(stopWords.length * Math.random())];
-const randomWord = getRandomStopWord();
+
 
 const defaultWords = {
   earth: "⛰️",
   fire: "🔥",
   life: "🌿",
-  stone: "🪨",
   water: "💦",
-  wind: "🌬️",
-  wood: "🪵",
+  wind: "🌬️"
 };
 
 function App() {
   const [loading, setLoading] = useState(false);
   const [firstWord, setFirstWord] = useState("");
   const [secondWord, setSecondWord] = useState("");
+  const [isFirstFound, setIsFirstFound] = useState(false);
+  const [stopWord, setStopWord] = useState(() => {
+    const wordsInStorage = localStorage.getItem("words");
+    if (wordsInStorage) {
+      return getRandomStopWord();
+    }
+    else {
+      return "Endless";
+    }
+  });
   const [newWord, setNewWord] = useState("");
   const [words, setWords] = useState(() => {
     const wordsInStorage = localStorage.getItem("words");
@@ -54,26 +63,25 @@ function App() {
       setLoading(true);
       const wordRes = await combineTwoWords(firstWord, secondWord);
 
-      // const word = wordRes?.choices[0].message.content.split(" ")[0].toLocaleLowerCase();
       const word = getFirstWord(
-        wordRes?.content.trim().replaceAll("\"", "")
+        wordRes.newWord.replaceAll("\"", "")
       );
       if (!Object.keys(words).includes(word)) {
-        const emoRes = await bestEmoji(word);
-        const emoji = emoRes?.content;
-        const updatedWords = { ...words, [word]: emoji };
+        const updatedWords = { ...words, [word]: wordRes.newEmoji };
         setWords(updatedWords);
+        setIsFirstFound(true);
         localStorage.setItem("words", JSON.stringify(updatedWords));
       }
       setNewWord(word);
       setLoading(false);
     },
-    [words, loading]
+    [words, isFirstFound, loading]
   );
 
   const setWord = useCallback(
     async (word) => {
       if (!loading) {
+        setIsFirstFound(false);
         if (newWord) {
           setFirstWord(word);
           setNewWord("");
@@ -88,8 +96,16 @@ function App() {
         }
       }
     },
-    [firstWord, secondWord, loading]
+    [firstWord, secondWord, isFirstFound, loading]
   );
+
+  useEffect(() => {
+    const interval = setInterval(() => setStopWord(getRandomStopWord()), (Math.random() * 10000) + 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
 
   return (
     <div className="App">
@@ -97,7 +113,7 @@ function App() {
         <div className="topbar">
           <div>
             <h2 style={{ textTransform: "uppercase" }}>
-              CRAFT {randomWord} THINGS
+              CRAFT {stopWord} THINGS
             </h2>
           </div>
           <div
@@ -110,20 +126,20 @@ function App() {
           >
             {firstWord ? (
               <>
-                <SelectedWord string={firstWord} emoji={words[firstWord]} />
+                <SelectedWord word={firstWord} emoji={words[firstWord]} isFirstFound={false} />
                 <span>+</span>
               </>
             ) : (
               <></>
             )}
             {secondWord ? (
-              <SelectedWord string={secondWord} emoji={words[secondWord]} />
+              <SelectedWord word={secondWord} emoji={words[secondWord]} isFirstFound={false} />
             ) : (
               <></>
             )}
-            {firstWord && secondWord ? "= " : ""}
+            <span>{firstWord && secondWord ? "= " : ""}</span>
             {newWord ? (
-              <SelectedWord string={newWord} emoji={words[newWord]} />
+              <SelectedWord word={newWord} emoji={words[newWord]} isFirstFound={isFirstFound} />
             ) : loading ? (
               <Spinner />
             ) : (

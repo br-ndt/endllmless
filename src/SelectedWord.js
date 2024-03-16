@@ -1,7 +1,5 @@
-export const SelectedWord = ({string, emoji}) => {
+export const SelectedWord = ({ word, emoji, isFirstFound }) => {
   return (
-    <>
-      {emoji}   {string}
-    </>
+    <span className={`word ${isFirstFound ? "firstWord" : ""}`} >{emoji}   {word}</span>
   );
 };

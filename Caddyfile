@@ -1,0 +1,11 @@
+endless.bitvox.me {
+    # Reverse proxy for a specific path
+    reverse_proxy /wordcombine localhost:8080
+
+    # Serve static files from a specific directory
+    root * /home/ec2-user/infinite/client
+
+    # Handle static file serving
+    file_server
+}
+

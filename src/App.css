@@ -5,6 +5,7 @@ palette: https://palettes.shecodes.io/palettes/1313
 * {
   text-transform: capitalize;
 }
+
 .App {
   text-align: center;
 }
@@ -17,6 +18,7 @@ palette: https://palettes.shecodes.io/palettes/1313
   height: 0.5vw;
   animation: spin 2s linear infinite;
   padding: 10px;
+  margin-left: 10px;
   display: inline-block;
 }
 
@@ -24,6 +26,7 @@ palette: https://palettes.shecodes.io/palettes/1313
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
@@ -42,9 +45,9 @@ button {
   font-size: large;
 }
 
-button:hover{
+button:hover {
   background-color: #ffffff;
-  color:#671199;
+  color: #671199;
   font-weight: bold;
 }
 
@@ -52,7 +55,7 @@ body {
   background: #142d4c;
   color: #ececec;
   /* font-size: 16px; */
-  font-size: calc(10px + 2vmin); 
+  font-size: calc(10px + 2vmin);
 }
 
 .container {
@@ -69,4 +72,45 @@ body {
     width: 100%;
     top: 0;
   }
+}
+
+span.word {
+  padding: 4px;
+}
+
+/* Define the animation */
+@keyframes tada {
+
+  0% {
+    transform: scale(1);
+    /* Original size */
+    color: white;
+  }
+
+  25%,
+  75% {
+    transform: scale(1.1);
+    /* Grow a bit */
+    color: #ffd700;
+  }
+
+  50% {
+    transform: scale(0.9);
+    color: white;
+    /* Shrink a bit */
+  }
+
+  100% {
+    transform: scale(1);
+    /* Original size */
+    color: #ffd700;
+  }
+}
+
+/* Apply the animation to span elements */
+span.firstWord {
+  /* Needed for transform */
+  animation: tada 1s ease 1;
+  color: #ffd700;
+  /* Adjust time and easing as needed */
 }
