@@ -18,6 +18,7 @@ palette: https://palettes.shecodes.io/palettes/1313
   height: 0.5vw;
   animation: spin 2s linear infinite;
   padding: 10px;
+  margin-left: 10px;
   display: inline-block;
 }
 
@@ -77,6 +78,39 @@ span.word {
   padding: 4px;
 }
 
+/* Define the animation */
+@keyframes tada {
+
+  0% {
+    transform: scale(1);
+    /* Original size */
+    color: white;
+  }
+
+  25%,
+  75% {
+    transform: scale(1.1);
+    /* Grow a bit */
+    color: #ffd700;
+  }
+
+  50% {
+    transform: scale(0.9);
+    color: white;
+    /* Shrink a bit */
+  }
+
+  100% {
+    transform: scale(1);
+    /* Original size */
+    color: #ffd700;
+  }
+}
+
+/* Apply the animation to span elements */
 span.firstWord {
+  /* Needed for transform */
+  animation: tada 1s ease 1;
   color: #ffd700;
+  /* Adjust time and easing as needed */
 }
