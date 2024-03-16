@@ -25,10 +25,8 @@ const defaultWords = {
   earth: "⛰️",
   fire: "🔥",
   life: "🌿",
-  stone: "🪨",
   water: "💦",
-  wind: "🌬️",
-  wood: "🪵",
+  wind: "🌬️"
 };
 
 function App() {
