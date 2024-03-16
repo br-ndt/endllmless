@@ -46,7 +46,7 @@ router.get('/', async (req, res, next) => {
     frequency_penalty: 0,
     presence_penalty: 0,
   });
-  const newEmoji = emojiResponse.choices[0].message.content.trim().replace(/[^a-zA-Z0-9 ]/g, '');
+  const newEmoji = emojiResponse.choices[0].message.content.trim().replaceAll("\"", "");
 
   res.json({ newWord, newEmoji });
 });
