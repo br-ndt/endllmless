@@ -36,7 +36,15 @@ function App() {
   const [firstWord, setFirstWord] = useState("");
   const [secondWord, setSecondWord] = useState("");
   const [isFirstFound, setIsFirstFound] = useState(false);
-  const [stopWord, setStopWord] = useState(getRandomStopWord());
+  const [stopWord, setStopWord] = useState(() => {
+    const wordsInStorage = localStorage.getItem("words");
+    if (wordsInStorage) {
+      return getRandomStopWord();
+    }
+    else {
+      return "Endless";
+    }
+  });
   const [newWord, setNewWord] = useState("");
   const [words, setWords] = useState(() => {
     const wordsInStorage = localStorage.getItem("words");
