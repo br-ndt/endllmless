@@ -60,17 +60,14 @@ function App() {
     setWordState(defaultWordState);
   };
 
-  const makeTheRequest = useCallback(
-    async (first, second) => {
-      setLoading(true);
-      const wordRes = await combineTwoWords(first, second);
+  const makeTheRequest = useCallback(async (first, second) => {
+    setLoading(true);
+    const wordRes = await combineTwoWords(first, second);
 
-      return {
-        [getFirstWord(wordRes.newWord.replaceAll('"', ""))]: wordRes.newEmoji,
-      };
-    },
-    []
-  );
+    return {
+      [getFirstWord(wordRes.newWord.replaceAll('"', ""))]: wordRes.newEmoji,
+    };
+  }, []);
 
   const setWordCombo = useCallback(
     async (first, second) => {
@@ -91,6 +88,22 @@ function App() {
       }
     },
     [loading, makeTheRequest, setStoredWords, storedWords]
+  );
+
+  const onClickWord = useCallback(
+    async (word) => {
+      if (!loading) {
+        setIsFirstFound(false);
+        if (wordState.new) {
+          setWordState({ ...defaultWordState, first: word });
+        } else if (wordState.first) {
+          setWordCombo(wordState.first, word);
+        } else {
+          setWordState({ ...defaultWordState, first: word });
+        }
+      }
+    },
+    [loading, setWordCombo, wordState]
   );
 
   useEffect(() => {
@@ -148,7 +161,11 @@ function App() {
             )}
           </div>
         </div>
-        <GameButtonsContainer setWordCombo={setWordCombo} words={storedWords} />
+        <GameButtonsContainer
+          onClickWord={onClickWord}
+          setWordCombo={setWordCombo}
+          words={storedWords}
+        />
       </div>
       <button onClick={resetWords}>Reset Words</button>
     </div>
