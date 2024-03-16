@@ -16,10 +16,6 @@ router.get('/', async (req, res, next) => {
       {
         "role": "user",
         "content": `User: Play a word game with me.\n      \n       Here are the rules of the game:\n       - I will give you two words, and you will respond with a conceptual combination of the two.\n       - The word must be a noun.\n       - The word should not simply be a combination of the two words, unless it is a commonly used word.\n       - Do not elaborate, use single word responses only.\n       - Try not to respond with either input word.\n             - Please prefer very commonplace and physical nouns where possible\n       - Choose the most commonsense interpretation for the combination.\n      \n       Some example rounds:\n       - \"Fire\" + \"Ice\" = \"Water\"\n       - \"Water\" + \"Fire\" = \"Steam\"\n       - \"Water\" + \"Earth\" = \"Mud\"\n       - \"Fire\" + \"Fire\" = \"Volcano\"\n       - \"Steam\" + \"Cloud\" = \"Rain\"\n       - \"Death\" + \"Human\" = \"Corpse\"\n       - \"Tomato\" + \"Bread\" = \"Pizza\"\n       - \"Bread\" + \"Fire\" = \"Toast\"\n       - \"Wind\" + \"Fire\" = \"Smoke\"\n       - \"Smoke\" + \"Smoke\" = \"Cloud\"\n      \n       The two words for this round are: \"${wordOne}\" + \"${wordTwo}\" = ?`
-      },
-      {
-        "role": "assistant",
-        "content": "Steam"
       }
     ],
     temperature: 1,
