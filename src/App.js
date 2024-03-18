@@ -34,6 +34,7 @@ const defaultWordState = {
 };
 
 function App() {
+  const [confirmReset, setConfirmReset] = useState(false);
   const [loading, setLoading] = useState(false);
   const [wordState, setWordState] = useState(defaultWordState);
   const [isFirstFound, setIsFirstFound] = useState(false);
@@ -54,11 +55,16 @@ function App() {
     }
   });
 
-  const resetWords = () => {
-    localStorage.setItem("words", JSON.stringify(defaultWords));
-    setStoredWords(defaultWords);
-    setWordState(defaultWordState);
-  };
+  const confirmResetWords = useCallback(() => {
+    setConfirmReset(true);
+  }, []);
+
+
+  const resetWords = useCallback(() => {
+    localStorage.removeItem("words");
+    setWords(defaultWords);
+    setConfirmReset(false);
+  }, []);
 
   const makeTheRequest = useCallback(async (first, second) => {
     setLoading(true);
@@ -92,6 +98,7 @@ function App() {
 
   const onClickWord = useCallback(
     async (word) => {
+      setConfirmReset(false);
       if (!loading) {
         setIsFirstFound(false);
         if (wordState.new) {
@@ -167,7 +174,8 @@ function App() {
           words={storedWords}
         />
       </div>
-      <button onClick={resetWords}>Reset Words</button>
+      {confirmReset ? <button onClick={resetWords}>Are You Sure?</button> : <button onClick={confirmResetWords}>Reset Words</button>}
+
     </div>
   );
 }
