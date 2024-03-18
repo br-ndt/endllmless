@@ -63,6 +63,7 @@ function App() {
   const resetWords = useCallback(() => {
     localStorage.removeItem("words");
     setStoredWords(defaultWords);
+    setWordState(defaultWordState);
     setConfirmReset(false);
   }, []);
 
