@@ -3,23 +3,69 @@ palette: https://palettes.shecodes.io/palettes/1313
 */
 
 * {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .App {
   text-align: center;
-}
 
-.spinner {
-  border: 1vw solid #f3f3f3;
-  border-top: 1vw solid #3498db;
-  border-radius: 50%;
-  width: 0.5vw;
-  height: 0.5vw;
-  animation: spin 2s linear infinite;
-  padding: 10px;
-  margin-left: 10px;
-  display: inline-block;
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 720px;
+    justify-content: center;
+
+    .topbar {
+      background: #142d4c;
+      position: sticky;
+      top: 0;
+      width: 100%;
+
+      .word-combo {
+        display: flex;
+        height: 50px;
+        justify-content: center;
+        margin-bottom: 16px;
+        min-height: 40px;
+
+        .spinner {
+          animation: spin 2s linear infinite;
+          border: 10px solid #f3f3f3;
+          border-top: 10px solid #3498db;
+          border-radius: 50%;
+          display: inline-block;
+          height: 0.5vw;
+          margin-left: 10px;
+          max-height: 100%;
+          padding: 10px;
+          width: 0.5vw;
+        }
+      }
+    }
+
+    .game-buttons-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 100%;
+
+      .draggable {
+        .game-button {
+          cursor: move;
+        }
+        cursor: move;
+      }
+
+      .game-button {
+        min-height: 104px;
+        min-width: 64px;
+        padding: 0px 6px 0px 6px;
+        text-transform: lowercase;
+      }
+    }
+  }
 }
 
 @keyframes spin {
@@ -38,11 +84,10 @@ button {
   /* box-shadow: 0px 0px 1px 2px #0ff; */
   box-shadow: 0px 0px 1px 2px #385170;
   display: flex-inline;
-  justify-content: space-between;
-  margin-right: 8px;
-  margin-bottom: 8px;
   font-weight: bold;
   font-size: large;
+  justify-content: space-between;
+  margin: 4px;
 }
 
 button:hover {
@@ -58,52 +103,35 @@ body {
   font-size: calc(10px + 2vmin);
 }
 
-.container {
-  margin: auto;
-  max-width: 720px;
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .topbar {
-    background: #142d4c;
-    position: sticky;
-    width: 100%;
-    top: 0;
-  }
-}
-
 span.word {
   padding: 4px;
 }
 
 /* Define the animation */
 @keyframes tada {
-
   0% {
+    color: white;
     transform: scale(1);
     /* Original size */
-    color: white;
   }
 
   25%,
   75% {
+    color: #ffd700;
     transform: scale(1.1);
     /* Grow a bit */
-    color: #ffd700;
   }
 
   50% {
-    transform: scale(0.9);
     color: white;
+    transform: scale(0.9);
     /* Shrink a bit */
   }
 
   100% {
+    color: #ffd700;
     transform: scale(1);
     /* Original size */
-    color: #ffd700;
   }
 }
 
