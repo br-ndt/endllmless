@@ -13,7 +13,7 @@ export const Draggable = ({ children, word }) => {
   );
 
   return (
-    <div ref={dragRef} style={{ opacity }}>
+    <div className="draggable" ref={dragRef} style={{ opacity }}>
       {children}
     </div>
   );

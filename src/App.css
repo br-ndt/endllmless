@@ -51,6 +51,13 @@ palette: https://palettes.shecodes.io/palettes/1313
       justify-content: center;
       max-width: 100%;
 
+      .draggable {
+        .game-button {
+          cursor: move;
+        }
+        cursor: move;
+      }
+
       .game-button {
         min-height: 104px;
         min-width: 64px;
