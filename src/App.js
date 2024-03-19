@@ -30,6 +30,7 @@ const defaultWords = {
 };
 
 function App() {
+  const [confirmReset, setConfirmReset] = useState(false);
   const [loading, setLoading] = useState(false);
   const [firstWord, setFirstWord] = useState("");
   const [secondWord, setSecondWord] = useState("");
@@ -53,10 +54,16 @@ function App() {
     }
   });
 
-  const resetWords = () => {
-    localStorage.setItem("words", JSON.stringify(defaultWords));
+  const confirmResetWords = useCallback(() => {
+    setConfirmReset(true);
+  }, []);
+
+
+  const resetWords = useCallback(() => {
+    localStorage.removeItem("words");
     setWords(defaultWords);
-  };
+    setConfirmReset(false);
+  }, []);
 
   const makeTheRequest = useCallback(
     async (firstWord, secondWord) => {
@@ -80,6 +87,7 @@ function App() {
 
   const setWord = useCallback(
     async (word) => {
+      setConfirmReset(false);
       if (!loading) {
         setIsFirstFound(false);
         if (newWord) {
@@ -105,7 +113,6 @@ function App() {
       clearInterval(interval);
     };
   }, []);
-
 
   return (
     <div className="App">
@@ -149,7 +156,8 @@ function App() {
         </div>
         <GameButtonsContainer setWord={setWord} words={words} />
       </div>
-      <button onClick={resetWords}>Reset Words</button>
+      {confirmReset ? <button onClick={resetWords}>Are You Sure?</button> : <button onClick={confirmResetWords}>Reset Words</button>}
+
     </div>
   );
 }
