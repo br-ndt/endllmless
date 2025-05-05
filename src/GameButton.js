@@ -23,27 +23,6 @@ const GameButton = ({ emoji, index, onClick, word }) => {
 export const GameButtonsContainer = ({ onClickWord, setWordCombo, words }) => {
   return (
     <>
-      <BrowserView>
-        <div className="game-buttons-container">
-          <DndProvider backend={HTML5Backend}>
-            {Object.keys(words).map((word, index) => {
-              return (
-                <Droppable key={word} onDrop={setWordCombo} word={word}>
-                  <Draggable key={word} word={word}>
-                    <GameButton
-                      emoji={words[word]}
-                      index={index}
-                      key={word}
-                      word={word}
-                    />
-                  </Draggable>
-                </Droppable>
-              );
-            })}{" "}
-          </DndProvider>
-        </div>
-      </BrowserView>
-      <MobileView>
         <div className="game-buttons-container">
           {Object.keys(words).map((word, index) => {
             return (
@@ -57,7 +36,6 @@ export const GameButtonsContainer = ({ onClickWord, setWordCombo, words }) => {
             );
           })}{" "}
         </div>
-      </MobileView>
     </>
   );
 };

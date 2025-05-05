@@ -11,7 +11,7 @@ router.get('/', async (req, res, next) => {
   const wordTwo = req.query.wordtwo;
 
   const wordResponse = await openai.chat.completions.create({
-    model: "gpt-4-turbo-preview",
+    model: "gpt-4o",
     messages: [
       {
         "role": "user",
@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => {
   const newWord = wordResponse.choices[0].message.content.trim().replace(/[^a-zA-Z0-9 ]/g, '');
 
   const emojiResponse = await openai.chat.completions.create({
-    model: "gpt-4-turbo-preview",
+    model: "gpt-4o",
     messages: [
       {
         "role": "user",
