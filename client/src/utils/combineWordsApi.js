@@ -1,4 +1,5 @@
 export const combineTwoWords = async (firstWord, secondWord) => {
-    const response = await fetch(`/wordcombine?wordone=${firstWord}&wordtwo=${secondWord}`);
-    return await response.json();
+    const requestTask = fetch(`/wordcombine?wordone=${firstWord}&wordtwo=${secondWord}`);
+    const response = await Promise.all([requestTask, new Promise(r => setTimeout(r, 1000))]);
+    return await response[0].json();
 };

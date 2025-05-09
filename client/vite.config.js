@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [preact()],
 	server: {
 		proxy: {
-			'/wordcombine': 'https://endless.bitvox.me',
+			'/wordcombine': 'http://localhost:8080',
 		}
 	}
 });

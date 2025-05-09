@@ -2,11 +2,7 @@
 
 <https://endless.bitvox.me>
 
-## Start Client
-
-- `cd client && npm i && npm run dev`
-
-## Start Server
+## Start Development
 
 - `export OPENAI_API_KEY=<key>`
-- `cd server && npm i && npm start`
+- `npm i && npm run dev`

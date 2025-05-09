@@ -1,4 +1,5 @@
 {
+	"name": "endllmless-client",
 	"private": true,
 	"type": "module",
 	"scripts": {

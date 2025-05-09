@@ -1,0 +1,19 @@
+{
+  "name": "endllmless",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:dev:client\" \"npm:dev:server\"",
+    "dev:client":  "npm --workspace client run dev",
+    "dev:server":   "npm --workspace server run dev",
+    "build":         "npm run build:client",
+    "build:client":"npm --workspace client run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
