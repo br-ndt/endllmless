@@ -1,10 +1,3 @@
-import { BrowserView, MobileView } from "react-device-detect";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { DndProvider } from "react-dnd";
-
-import { Draggable } from "./Draggable";
-import { Droppable } from "./Droppable";
-
 // word: string, onClick: Function
 const GameButton = ({ emoji, index, onClick, word }) => {
   return (
