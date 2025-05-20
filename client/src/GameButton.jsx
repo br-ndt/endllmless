@@ -13,22 +13,22 @@ const GameButton = ({ emoji, index, onClick, word }) => {
 };
 
 // words: string[]
-export const GameButtonsContainer = ({ onClickWord, setWordCombo, words }) => {
+export const GameButtonsContainer = ({ onClickWord, words }) => {
   return (
     <>
-        <div className="game-buttons-container">
-          {Object.keys(words).map((word, index) => {
-            return (
-              <GameButton
-                emoji={words[word]}
-                index={index}
-                key={word}
-                onClick={onClickWord}
-                word={word}
-              />
-            );
-          })}{" "}
-        </div>
+      <div className="game-buttons-container">
+        {Object.keys(words).map((word, index) => {
+          return (
+            <GameButton
+              emoji={words[word]}
+              index={index}
+              key={word}
+              onClick={onClickWord}
+              word={word}
+            />
+          );
+        })}{" "}
+      </div>
     </>
   );
 };

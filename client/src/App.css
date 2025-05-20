@@ -2,10 +2,6 @@
 palette: https://palettes.shecodes.io/palettes/1313
 */
 
-* {
-  text-transform: uppercase;
-}
-
 .App {
   text-align: center;
 
@@ -62,7 +58,7 @@ palette: https://palettes.shecodes.io/palettes/1313
         min-height: 104px;
         min-width: 64px;
         padding: 0px 6px 0px 6px;
-        text-transform: lowercase;
+        text-transform: capitalize;
       }
     }
   }
@@ -106,6 +102,7 @@ body {
 span.word {
   padding: 4px;
   white-space: nowrap;
+  text-transform: capitalize;
 }
 
 /* Define the animation */
