@@ -5,14 +5,7 @@ const getRandomStopWord = () =>
     stopWords[Math.floor(stopWords.length * Math.random())];
 
 export const TitleHeader = () => {
-    const [stopWord, setStopWord] = useState(() => {
-        const wordsInStorage = localStorage.getItem("words");
-        if (wordsInStorage) {
-            return getRandomStopWord();
-        } else {
-            return "Endless";
-        }
-    });
+    const [stopWord, setStopWord] = useState("Endless");
 
     useEffect(() => {
         const interval = setInterval(

@@ -2,7 +2,7 @@ import { useEffect } from "preact/hooks";
 import { SelectedWord } from "./SelectedWord";
 import { Spinner } from "./Spinner";
 
-const combineTwoWords = async (firstWord, secondWord) => {
+const wordCombineApi = async (firstWord, secondWord) => {
     const requestTask = fetch(`/wordcombine?wordone=${firstWord}&wordtwo=${secondWord}`);
     const response = (await Promise.all([requestTask, new Promise(r => setTimeout(r, 600))]))[0];
     return await response.json();
@@ -13,7 +13,7 @@ export const WordCombo = ({ wordState, words, loadingWord, newWord, loadingError
         if (!wordState.loading && wordState.first && wordState.second) {
             async function makeTheRequest() {
                 try {
-                    const wordRes = await combineTwoWords(wordState.first, wordState.second);
+                    const wordRes = await wordCombineApi(wordState.first, wordState.second);
                     newWord(wordRes.newWord, wordRes.newEmoji);
                 }
                 catch (error) {
