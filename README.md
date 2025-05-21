@@ -4,5 +4,5 @@
 
 ## Start Development
 
-- `export OPENAI_API_KEY=<key>`
+- optional: `export OPENAI_API_KEY=<key>`
 - `npm i && npm run dev`

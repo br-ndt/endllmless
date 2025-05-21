@@ -6,7 +6,7 @@ export default defineConfig({
 	plugins: [preact()],
 	server: {
 		proxy: {
-			'/wordcombine': 'http://localhost:8080',
+			'/wordcombine': process.env.OPENAI_API_KEY ? 'http://localhost:8080' : "https://endless.bitvox.me",
 		}
 	}
 });
