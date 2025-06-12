@@ -1,7 +1,3 @@
-/*
-palette: https://palettes.shecodes.io/palettes/1313
-*/
-
 .App {
   text-align: center;
 
@@ -10,7 +6,8 @@ palette: https://palettes.shecodes.io/palettes/1313
     display: flex;
     flex-direction: column;
     margin: auto;
-    max-width: 720px;
+    max-width: none;
+    width: 100vw;
     justify-content: center;
 
     .topbar {
@@ -46,6 +43,8 @@ palette: https://palettes.shecodes.io/palettes/1313
       flex-wrap: wrap;
       justify-content: center;
       max-width: 100%;
+      width: 80vw;
+      margin: 0 auto;
 
       .draggable {
         .game-button {
@@ -59,6 +58,20 @@ palette: https://palettes.shecodes.io/palettes/1313
         min-width: 64px;
         padding: 0px 6px 0px 6px;
         text-transform: capitalize;
+      }
+      .game-button.tada {
+        animation: tada 1s ease 1;
+      }
+      .game-button.selected {
+        background: #ffe066;
+        transition: background 0.15s linear;
+      }
+      .game-button.selected.fade-out {
+        background: #9fd3c7;
+        transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .game-button:not(.selected):not(.fade-out) {
+        transition: background 0s;
       }
     }
   }
@@ -105,31 +118,28 @@ span.word {
   text-transform: capitalize;
 }
 
+span.word.selected {
+  background: #ffe066;
+  transition: background 0.5s;
+}
+
 /* Define the animation */
 @keyframes tada {
   0% {
-    color: white;
     transform: scale(1);
-    /* Original size */
   }
 
   25%,
   75% {
-    color: #ffd700;
     transform: scale(1.1);
-    /* Grow a bit */
   }
 
   50% {
-    color: white;
     transform: scale(0.9);
-    /* Shrink a bit */
   }
 
   100% {
-    color: #ffd700;
     transform: scale(1);
-    /* Original size */
   }
 }
 
@@ -139,4 +149,23 @@ span.firstWord {
   animation: tada 1s ease 1;
   color: #ffd700;
   /* Adjust time and easing as needed */
+}
+
+.flash {
+  animation: flash-bg 0.6s;
+}
+
+@keyframes flash-bg {
+  0% {
+    background: #ffd700;
+    color: #142d4c;
+  }
+  50% {
+    background: #fffbe0;
+    color: #142d4c;
+  }
+  100% {
+    background: none;
+    color: inherit;
+  }
 }

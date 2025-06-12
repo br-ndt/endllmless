@@ -33,7 +33,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container" style={{ maxWidth: "720px", margin: "auto" }}>
+      <div className="container" style={{ margin: "auto" }}>
         <div className="topbar">
           <TitleHeader />
           <WordCombo wordState={gameState.wordState} words={gameState.words} loadingWord={loadingWord} newWord={newWord} loadingError={loadingError} />
