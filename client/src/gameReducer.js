@@ -51,13 +51,16 @@ function innerGameReducer(state, action) {
         }
         case 'click_word': {
             if (state.wordState.loading || state.wordState.foundDelay) {
-                if(state.wordsQueue.length && !state.wordsQueue[state.wordsQueue.length - 1].second) {
+                if (state.wordsQueue.length && !state.wordsQueue[state.wordsQueue.length - 1].second) {
                     const newQueue = [...state.wordsQueue];
                     newQueue[newQueue.length - 1].second = action.word;
                     return { ...state, wordsQueue: newQueue };
                 }
                 else {
-                    return {...state, wordsQueue: [...state.wordsQueue, { first: action.word, second: "" }]};
+                    return {
+                        ...state,
+                        wordsQueue: [...state.wordsQueue, { first: action.word, second: "" }]
+                    };
                 }
             }
             if (!state.wordState.first || state.wordState.new) {
@@ -82,7 +85,13 @@ function innerGameReducer(state, action) {
         case 'new_word': {
             return {
                 ...state,
-                wordState: { ...state.wordState, foundDelay: true, loading: false, new: action.word, isFirstFound: !Object.keys(state.words).includes(action.word) },
+                wordState: {
+                    ...state.wordState,
+                    foundDelay: true,
+                    loading: false,
+                    new: action.word,
+                    isFirstFound: !Object.keys(state.words).includes(action.word)
+                },
                 words: { ...state.words, ...{ [action.word]: action.emoji } },
             };
         }
@@ -94,13 +103,13 @@ function innerGameReducer(state, action) {
         }
         case 'found_delay': {
             if (!state.wordsQueue.length) {
-                return {...state, wordState: { ...state.wordState, foundDelay: false }};
+                return { ...state, wordState: { ...state.wordState, foundDelay: false } };
             }
             const [next, ...remainingQueue] = state.wordsQueue;
             return {
                 ...state,
                 wordsQueue: remainingQueue,
-                wordState: { ...state.defaultWordState, ...next }
+                wordState: { ...defaultWordState, ...next }
             };
         }
     }

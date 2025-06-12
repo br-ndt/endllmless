@@ -7,7 +7,7 @@
     flex-direction: column;
     margin: auto;
     max-width: none;
-    width: 100vw;
+    width: 100%;
     justify-content: center;
 
     .topbar {
@@ -43,9 +43,8 @@
       flex-wrap: wrap;
       justify-content: center;
       max-width: 100%;
-      width: 80vw;
       margin: 0 auto;
-
+      width: 96vw;
       .draggable {
         .game-button {
           cursor: move;
@@ -72,6 +71,16 @@
       }
       .game-button:not(.selected):not(.fade-out) {
         transition: background 0s;
+      }
+    }
+  }
+}
+
+@media (min-width: 720px) {
+  .App {
+    & .container {
+      & .game-buttons-container {
+        width: 80vw;
       }
     }
   }

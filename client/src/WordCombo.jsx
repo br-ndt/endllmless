@@ -23,7 +23,7 @@ export const WordCombo = ({ wordState, words, loadingWord, newWord, loadingError
             loadingWord();
             makeTheRequest();
         }
-    }, [wordState.second]);
+    }, [wordState]);
 
     useEffect(() => {
         localStorage.setItem("words", JSON.stringify(words));
