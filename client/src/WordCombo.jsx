@@ -10,7 +10,7 @@ const wordCombineApi = async (firstWord, secondWord) => {
 
 export const WordCombo = ({ wordState, words, loadingWord, newWord, loadingError }) => {
     useEffect(() => {
-        if (!wordState.loading && !wordState.foundDelay && wordState.first && wordState.second) {
+        if (!wordState.loading && !wordState.foundDelay && !wordState.new && wordState.first && wordState.second) {
             async function makeTheRequest() {
                 try {
                     const wordRes = await wordCombineApi(wordState.first, wordState.second);
