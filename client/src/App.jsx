@@ -17,8 +17,10 @@ function App() {
     dispatch({ type: 'click_word', word });
   }
 
-  function newWord(word, emoji) {
+  async function newWord(word, emoji) {
     dispatch({ type: 'new_word', word, emoji });
+    await new Promise(r => setTimeout(r, 500));
+    dispatch({ type: 'found_delay' });
   }
 
   function loadingWord() {

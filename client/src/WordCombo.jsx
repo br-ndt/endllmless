@@ -4,13 +4,13 @@ import { Spinner } from "./Spinner";
 
 const wordCombineApi = async (firstWord, secondWord) => {
     const requestTask = fetch(`/wordcombine?wordone=${firstWord}&wordtwo=${secondWord}`);
-    const response = (await Promise.all([requestTask, new Promise(r => setTimeout(r, 600))]))[0];
+    const response = (await Promise.all([requestTask, new Promise(r => setTimeout(r, 2000))]))[0];
     return await response.json();
 };
 
 export const WordCombo = ({ wordState, words, loadingWord, newWord, loadingError }) => {
     useEffect(() => {
-        if (!wordState.loading && wordState.first && wordState.second) {
+        if (!wordState.loading && !wordState.foundDelay && wordState.first && wordState.second) {
             async function makeTheRequest() {
                 try {
                     const wordRes = await wordCombineApi(wordState.first, wordState.second);
